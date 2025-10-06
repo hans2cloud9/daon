@@ -1,0 +1,193 @@
+/* 1) 전역 변수(라이트/다크) — 기존 유지 + 누락 변수 보강 */
+.theme-light .notion-page {
+  --color-mask-default: linear-gradient(rgb(253,251,245), rgba(253,251,245,0)) !important;
+  --lime-green: hsl(120, 73%, 75%) !important;
+  --dark-green: green !important;
+  --grey: rgba(119,119,119,1) !important;
+  --white: rgba(252,251,251,1) !important;
+  --border-color: rgba(25,26,25,1) !important;
+  --hover-bg: rgba(25,26,25,1) !important;
+  --hover-color: rgba(252,251,251,1) !important;
+  --text: rgba(25,26,25,1) !important;
+  --toggle-summary: #37352f !important;
+
+  /* 누락 가능 변수: fallback 포함 */
+  --padding-left: 0px;
+  --padding-right: 0px;
+  --collection-card-border-radii: 12px;
+  --heading1: clamp(1.75rem, 2.2vw, 2.25rem);
+  --heading2: clamp(1.5rem, 1.8vw, 1.875rem);
+  --heading3: clamp(1.25rem, 1.4vw, 1.5rem);
+  --db-card-gap: 16px;
+}
+
+.theme-dark .notion-page {
+  --color-mask-default: linear-gradient(rgb(253,251,245), rgba(253,251,245,0)) !important;
+  --lime-green: hsl(146, 32%, 47%) !important;
+  --dark-green: hsl(146, 32%, 15%) !important;
+  --grey: rgba(119,119,119,1) !important;
+  --white: rgba(252,251,251,1) !important;
+  --text: rgba(252,251,251,1) !important;
+  --hover-bg: rgba(252,251,251,1) !important;
+  --hover-color: rgba(25,26,25,1) !important;
+  --border-color: rgba(119,119,119,1) !important;
+  --toggle-summary: lightgrey !important;
+
+  --padding-left: 0px;
+  --padding-right: 0px;
+  --collection-card-border-radii: 12px;
+  --heading1: clamp(1.75rem, 2.2vw, 2.25rem);
+  --heading2: clamp(1.5rem, 1.8vw, 1.875rem);
+  --heading3: clamp(1.25rem, 1.4vw, 1.5rem);
+  --db-card-gap: 16px;
+}
+
+/* 2) 네비게이션 — 높이·브랜드 셀렉터 보강 */
+.bullet-navbar {
+  padding-left: 6rem;
+  padding-right: 6rem;
+  min-height: 150px !important;
+  height: auto !important;             /* ← 100% 대신 auto */
+  align-items: center !important;
+  justify-content: space-between !important;
+  display: flex !important;
+}
+/* 브랜드 셀렉터 호환 범위 확장 */
+.bullet-navbar .navbar-brand,
+.bullet-navbar .notion-navbar-brand {
+  padding: 0 !important;
+}
+.bullet-navbar .navbar-brand-logo img,
+.bullet-navbar .notion-navbar-brand-logo img {
+  height: auto !important;
+}
+
+/* 3) 타이포그래피 — 변수 일관 사용 */
+.notion-h1 { font-size: 3vw !important; }
+.notion-h2 { font-size: var(--heading2); }
+.notion-h3 { font-size: var(--heading3); }
+.notion-text {
+  margin-top: 0.5rem !important;
+  max-width: 90rem !important;
+  font-weight: 400 !important;
+}
+
+/* 4) 페이지 레이아웃 */
+.notion-page {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding-left: var(--padding-left);
+  padding-right: var(--padding-right);
+  padding-bottom: 0 !important;
+}
+
+/* 커버 미노출 시 */
+.notion-page-header-cover-empty { display: none; }
+
+/* 페이지 제목 숨김은 필요한 경우에만! (권장: 더 좁은 범위로) */
+/* .notion-title { display: none !important; } */
+
+/* 첫 H1 */
+.notion-page-content-inner > .notion-h1:first-of-type {
+  width: 70%;
+  margin-bottom: 1rem;
+}
+
+/* 5) 버튼/링크 */
+.bullet-btn {
+  color: var(--text) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 0.8rem 1.6rem !important;
+  text-transform: capitalize !important;
+  letter-spacing: 0.05rem !important;
+  border-radius: 50px !important;
+  font-weight: 500 !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  transition: background-color .2s ease-in-out, border-color .2s ease-in-out, color .2s ease-in-out !important;
+}
+.bullet-btn:hover {
+  opacity: 0.9 !important;
+  /* 대비 향상: 색상 토큰도 같이 */
+  background-color: var(--hover-bg) !important;
+  color: var(--hover-color) !important;
+  border-color: var(--hover-bg) !important;
+}
+.bullet-btn.bg-green-light {
+  color: var(--white) !important;
+  background: var(--lime-green) !important;
+}
+
+/* 페이지 블록 링크 */
+a .notion-page-content {
+  width: auto !important;
+  max-width: fit-content;
+  padding: 5px 15px !important;
+  background-color: transparent;        /* ← none → transparent */
+  border: 1px solid var(--border-color);
+  border-radius: var(--collection-card-border-radii, 12px); /* ← fallback */
+  font-size: 0.875rem !important;
+  transition: opacity .2s, color .2s, background-color .2s, border-color .2s;
+}
+a:hover .notion-page-content {
+  background: var(--hover-bg) !important;
+  color: var(--hover-color) !important;
+}
+
+/* 6) 갤러리 뷰 */
+.notion-gallery-grid {
+  border: none !important;
+  gap: var(--db-card-gap);
+}
+/* 크기 클래스 호환 */
+.notion-gallery-grid.notion-gallery-grid-size-large,
+.notion-gallery-grid-size-large {
+  display: grid !important;
+  grid-template-columns: repeat(24, 1fr) !important;
+  /* grid-column 은 컨테이너가 아닌 아이템에 쓰는 속성이라 제거 */
+}
+
+/* 7) 토글 */
+.notion-toggle {
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--collection-card-border-radii, 12px) !important;
+  text-align: left !important;
+  margin: -0.5px !important;
+  position: relative !important;
+  transition: border-color .3s ease-in-out, background-color .3s ease-in-out !important;
+}
+.notion-toggle summary {
+  margin-top: 0 !important;
+  padding: 25px 70px 25px 0px !important;
+  color: var(--toggle-summary) !important; /* ← 변수 사용 */
+}
+/* 필요 시 아이콘을 의도적으로 넣을 때만 before 사용 */
+.notion-toggle::before { /* … */ }
+.notion-toggle[open]::before { /* … */ }
+
+/* 8) 콜아웃 */
+.notion-callout {
+  display: grid !important;
+  height: 100% !important;
+  max-height: 100% !important;
+}
+.notion-callout .notion-callout-text {
+  display: flex;                 /* ← justify-content 적용되도록 */
+  justify-content: flex-end;     /* end 대신 flex-end (flexbox) */
+}
+.notion-callout .notion-page-icon-inline {
+  margin-bottom: 80px !important;
+}
+
+/* 9) 미디어 쿼리 */
+@media (max-width: 1200px) {
+  .notion-page-content-inner > .notion-h1:first-of-type {
+    width: 100%;
+    font-size: var(--heading1);
+  }
+  .notion-gallery-grid.notion-gallery-grid-size-large,
+  .notion-gallery-grid-size-large {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
